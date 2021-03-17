@@ -15,7 +15,7 @@ component = <Empty />
       <Header time={props.time}/>
      {component}
     </article>
-  )
+  );
 }
 
 export default Appointment;
