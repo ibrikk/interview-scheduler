@@ -16,3 +16,20 @@ export default function getAppointmentsForDay(state, day) {
   }
   return appointmentsArr;
 }
+
+const getInterviewer = (state, interviewer) => {
+  let interviewerObj = {};
+  for (let int in state.interviewers) {
+    if (interviewer) {
+      if (state.interviewers[int].id === interviewer.interviewer) {
+        interviewerObj.interviewer = state.interviewers[int];
+        interviewerObj.student = interviewer.student;
+      }
+    } else {
+      return null;
+    }
+  }
+  return interviewerObj;
+}
+
+export { getAppointmentsForDay, getInterviewer }
