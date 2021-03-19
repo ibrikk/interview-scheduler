@@ -10,7 +10,7 @@ export default function getAppointmentsForDay(state, day) {
   for (let aptObj in state.appointments) {
     for (let id of aptArr) {
       if (id === parseInt(aptObj)) {
-        appointmentsArr.push(state.appointments[aptObj])
+        appointmentsArr.push(state.appointments[aptObj]);
       }
     }
   }
@@ -30,6 +30,6 @@ const getInterviewer = (state, interviewer) => {
     }
   }
   return interviewerObj;
-}
+};
 
-export { getAppointmentsForDay, getInterviewer }
+export { getAppointmentsForDay, getInterviewer };
