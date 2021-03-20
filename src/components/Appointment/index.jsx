@@ -19,7 +19,6 @@ const ERROR_SAVE = 'ERROR_SAVE';
  const ERROR_DELETE = 'ERROR_DELETE';
  const DELETE = 'DELETE';
 
- 
 
 const Appointment = (props) => {
   const initial = props.interview ? SHOW : EMPTY;

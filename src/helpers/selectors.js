@@ -32,14 +32,10 @@ const getInterviewer = (state, interviewer) => {
       return null;
     }
   }
-  
-  // console.log('interviewer');
-  // console.log(interviewer);
     return interviewerObj;
 };
 
 function getInterviewersForDay(state, day) {
-  // state.days is an array of days
   let intArr = [];
   for (let date of state.days) {
     if (date.name === day) {
