@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './styles.scss';
 import Header from './Header';
 import Show from './Show';
@@ -18,7 +18,6 @@ const CREATE = 'CREATE';
 const ERROR_SAVE = 'ERROR_SAVE';
  const ERROR_DELETE = 'ERROR_DELETE';
  const DELETE = 'DELETE';
-
 
 const Appointment = (props) => {
   const initial = props.interview ? SHOW : EMPTY;
@@ -43,6 +42,16 @@ const Appointment = (props) => {
     props.editInterview(props.id, {student: name, interviewer})
       .then(() => transition(SHOW))
   }
+
+  useEffect(() => {
+    if (props.interviewInfo && mode === EMPTY) {
+      transition(SHOW);
+    }
+    if (props.interviewInfo === null && mode === SHOW) {
+      transition(EMPTY);
+    }
+    console.log('mode', mode);
+  }, [props.interviewInfo, transition, mode]);
  
 
   return (
