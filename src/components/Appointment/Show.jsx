@@ -1,4 +1,3 @@
-import InterviewerList from 'components/InterviewerList';
 import React from 'react';
 
 const Show = props => {
