@@ -125,13 +125,13 @@ storiesOf("Button", module)
         .add("Initial", () => (
           <InterviewerList
             interviewers={interviewers}
-            setInterviewer={action("setInterviewer")}
+            setInterviewer={event => action(("setInterviewer")(interviewer.id)}
           />
         ))
         .add("Preselected", () => (
           <InterviewerList
             interviewers={interviewers}
-            interviewer={3}
+            value={3}
             setInterviewer={action("setInterviewer")}
           />
         ));

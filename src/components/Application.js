@@ -3,21 +3,15 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
-import {getAppointmentsForDay, getInterviewer} from "helpers/selectors"
+import {getAppointmentsForDay, getInterviewer, getInterviewersForDay} from "helpers/selectors";
 
 export default function Application(props) {
 
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {},
-    interviewer: {
-      "1": {
-        "id": 1,
-        "name": "Sylvia Palmer",
-        "avatar": "https://i.imgur.com/LpaY82x.png"
-      }
-    }
+    appointments: {}, 
+    interviewers:{}
   });
 
   const setDay = day => setState(prev => ({ ...prev, day }));
@@ -26,16 +20,6 @@ export default function Application(props) {
   const setInterviewers = interviewers => setState(prev => ({...prev, interviewers}));
 
   useEffect(() => {
-    // Get request to get days
-    // Axios
-    // .get("http://localhost:8001/api/days")
-    // .then((res) => setDays(res.data))
-    // .catch((err) => console.log("There was an error when trying to get days", err))
-    // // Get request to get appointments
-    // Axios
-    // .get("http://localhost:8001/api/appointments")
-    // .then((res) => setAppointments(res.data))
-    // .catch((err) => console.log("There was an error when trying to get appointments", err))
     Promise.all([
       axios.get("http://localhost:8001/api/days"),
       axios.get("http://localhost:8001/api/appointments"),
@@ -47,6 +31,61 @@ export default function Application(props) {
       setInterviewers(res[2].data)
     })
   }, []);
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: {...interview}
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return (
+      axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+      .then((res) => setState({...state, appointments}))
+    )
+  }
+
+  function deleteInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return (
+      axios
+        .delete(`http://localhost:8001/api/appointments/${id}`)
+        .then((res) => 
+          setState({
+            ...state,
+            appointments
+        })))
+  }
+
+  function editInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return (
+      axios
+        .put(`http://localhost:8001/api/appointments/${id}`, {interview})
+        .then((res) => 
+          setState({
+            ...state,
+            appointments
+        })))
+  }
 
   return (
     <main className="layout">
@@ -74,8 +113,14 @@ export default function Application(props) {
         {getAppointmentsForDay(state, state.day).map((appointment) => 
           <Appointment 
             key={appointment.id} 
+            id={appointment.id} 
+            interviewInfo={getInterviewer(state, appointment.interview)}
+             interviewers = {getInterviewersForDay(state, state.day)}
+            bookInterview={bookInterview}
+            deleteInterview={deleteInterview}
+            editInterview={editInterview}
             {...appointment}
-            interviewInfo={getInterviewer(state, appointment.interview)}/>
+            />
         )}
       </section>
     </main>

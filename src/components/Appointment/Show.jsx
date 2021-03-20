@@ -1,3 +1,4 @@
+import InterviewerList from 'components/InterviewerList';
 import React from 'react';
 
 const Show = props => {
@@ -22,7 +23,7 @@ const Show = props => {
         className="appointment__actions-button"
         src="images/trash.png"
         alt="Delete"
-        onClick={() => props.onDelete}
+        onClick={props.onDelete}
       />
     </section>
   </section>
