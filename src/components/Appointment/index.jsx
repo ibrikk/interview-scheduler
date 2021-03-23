@@ -50,12 +50,11 @@ const Appointment = (props) => {
     if (props.interviewInfo === null && mode === SHOW) {
       transition(EMPTY);
     }
-    console.log('mode', mode);
   }, [props.interviewInfo, transition, mode]);
  
 
   return (
-    <article className='appointment'>
+    <article className='appointment' data-testid='appointment'>
       <Header time={props.time} />
       {(mode === EMPTY || mode === BACK) && (
         <Empty onAdd={() => transition(CREATE)} />
