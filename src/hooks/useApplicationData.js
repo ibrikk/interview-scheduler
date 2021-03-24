@@ -72,6 +72,9 @@ const useApplicationData = () => {
       axios.get('http://localhost:8001/api/appointments'),
       axios.get('http://localhost:8001/api/interviewers'),
     ]).then((res) => {
+      // console.log(res[0].data)
+      // console.log(res[1].data)
+      // console.log(res[2].data)
       setApplicationData(res[0].data, res[1].data, res[2].data);
     });
   }, [bool]);
