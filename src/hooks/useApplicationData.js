@@ -40,21 +40,21 @@ const useApplicationData = () => {
   useEffect(() => {
     let ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
     ws.addEventListener('open', () => {
-      ws.onmessage = event => {
-        const {type, id, interview} = JSON.parse(event.data);
+      ws.onmessage = (event) => {
+        const { type, id, interview } = JSON.parse(event.data);
         // update appointments
         const appointment = {
           ...state.appointments[id],
-          interview
+          interview,
         };
         const appointments = {
           ...state.appointments,
-          [id]: appointment
+          [id]: appointment,
         };
         const update = {
-          type, 
-          appointments
-        }
+          type,
+          appointments,
+        };
         if (type) {
           dispatch(update);
         }
@@ -72,9 +72,6 @@ const useApplicationData = () => {
       axios.get('http://localhost:8001/api/appointments'),
       axios.get('http://localhost:8001/api/interviewers'),
     ]).then((res) => {
-      // console.log(res[0].data)
-      // console.log(res[1].data)
-      // console.log(res[2].data)
       setApplicationData(res[0].data, res[1].data, res[2].data);
     });
   }, [bool]);

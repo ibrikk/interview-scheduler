@@ -1,7 +1,5 @@
 function getAppointmentsForDay(state, day) {
   let aptArr = [];
-  // console.log('state');
-  // console.log(state);
   for (let date of state.days) {
     if (date.name === day) {
       aptArr.push(...date.appointments);
@@ -21,7 +19,7 @@ function getAppointmentsForDay(state, day) {
 
 const getInterviewer = (state, interviewer) => {
   let interviewerObj = {};
-  
+
   for (let int in state.interviewers) {
     if (interviewer) {
       if (state.interviewers[int].id === interviewer.interviewer) {
@@ -32,7 +30,7 @@ const getInterviewer = (state, interviewer) => {
       return null;
     }
   }
-    return interviewerObj;
+  return interviewerObj;
 };
 
 function getInterviewersForDay(state, day) {
@@ -47,12 +45,11 @@ function getInterviewersForDay(state, day) {
   for (let intObj in state.interviewers) {
     for (let id of intArr) {
       if (id === parseInt(intObj)) {
-        interviewersArr.push(state.interviewers[intObj])
+        interviewersArr.push(state.interviewers[intObj]);
       }
     }
   }
   return interviewersArr;
 }
-
 
 export { getAppointmentsForDay, getInterviewer, getInterviewersForDay };

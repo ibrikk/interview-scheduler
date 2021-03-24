@@ -1,50 +1,43 @@
-describe("appointments", () => {
+describe('appointments', () => {
   beforeEach(() => {
-    cy.request("GET", "/api/debug/reset");
-    cy.visit("/");
-    cy.contains("Monday");
-   });
-
-  it("Should book an interview", () => {
-    cy.get("[alt=Add]")
-      .first()
-      .click();
-
-    cy.get("[data-testid=student-name-input]").type("Lydia Miller-Jones");
-    cy.get("[alt='Mildred Nazir']").click();
-
-    cy.contains("Save").click();
-
-    cy.contains(".appointment__card--show", "Lydia Miller-Jones");
-    cy.contains(".appointment__card--show", "Mildred Nazir");
+    cy.request('GET', '/api/debug/reset');
+    cy.visit('/');
+    cy.contains('Monday');
   });
 
-  it("Should edit an interview", () => {
-    cy.get("[alt=Edit]")
-      .first()
-      .click({force: true});
+  it('Should book an interview', () => {
+    cy.get('[alt=Add]').first().click();
 
-    cy.get("[data-testid=student-name-input]")
+    cy.get('[data-testid=student-name-input]').type('Lydia Miller-Jones');
+    cy.get("[alt='Mildred Nazir']").click();
+
+    cy.contains('Save').click();
+
+    cy.contains('.appointment__card--show', 'Lydia Miller-Jones');
+    cy.contains('.appointment__card--show', 'Mildred Nazir');
+  });
+
+  it('Should edit an interview', () => {
+    cy.get('[alt=Edit]').first().click({ force: true });
+
+    cy.get('[data-testid=student-name-input]')
       .clear()
-      .type("Lydia Miller-Jones")
+      .type('Lydia Miller-Jones');
 
     cy.get("[alt='Tori Malcolm']").click();
 
-    cy.contains("Save").click();
+    cy.contains('Save').click();
 
-    cy.contains(".appointment__card--show", "Lydia Miller-Jones");
-    cy.contains(".appointment__card--show", "Tori Malcolm");
+    cy.contains('.appointment__card--show', 'Lydia Miller-Jones');
+    cy.contains('.appointment__card--show', 'Tori Malcolm');
   });
 
-  it.skip("Should cancel interview", () => {
-    cy.get("[alt=Delete]")
-      .first()
-      .click({force: true});
+  it.skip('Should cancel interview', () => {
+    cy.get('[alt=Delete]').first().click({ force: true });
 
-    cy.contains("Confirm").click();
+    cy.contains('Confirm').click();
 
-    cy.contains("Deleting").should("not.exist")
-    cy.contains(".appointment__card--show", "Tori Malcolm")
-      .should("not.exist");
+    cy.contains('Deleting').should('not.exist');
+    cy.contains('.appointment__card--show', 'Tori Malcolm').should('not.exist');
   });
 });
