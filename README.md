@@ -1,8 +1,11 @@
 # Interview Scheduler
 
+A web app built with React that allows users to schedule interviews!
+
 ## Setup
 
-Install dependencies with `npm install`.
+Clone and set up the scheduler-api server repository.
+Install dependencies with 'npm install'.
 
 ## Running Webpack Development Server
 
